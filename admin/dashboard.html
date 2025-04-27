@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Gaming Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .dashboard-card {
+            transition: all 0.3s ease;
+        }
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(147, 51, 234, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900">
+    <!-- Navigation -->
+    <nav class="bg-gray-900 bg-opacity-60 border-b border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="text-white text-xl font-bold">Gaming Hub</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span id="adminUsername" class="text-white"></span>
+                    <button onclick="logout()" class="text-white hover:text-purple-400 transition-colors">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-white mb-8">Admin Dashboard</h1>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="glass-morphism dashboard-card rounded-lg p-6">
+                <h3 class="text-white text-lg font-semibold mb-2">Total Users</h3>
+                <p class="text-purple-400 text-2xl font-bold">1,234</p>
+            </div>
+            <div class="glass-morphism dashboard-card rounded-lg p-6">
+                <h3 class="text-white text-lg font-semibold mb-2">Active Games</h3>
+                <p class="text-purple-400 text-2xl font-bold">3</p>
+            </div>
+            <div class="glass-morphism dashboard-card rounded-lg p-6">
+                <h3 class="text-white text-lg font-semibold mb-2">Total Games Played</h3>
+                <p class="text-purple-400 text-2xl font-bold">5,678</p>
+            </div>
+            <div class="glass-morphism dashboard-card rounded-lg p-6">
+                <h3 class="text-white text-lg font-semibold mb-2">Active Sessions</h3>
+                <p class="text-purple-400 text-2xl font-bold">42</p>
+            </div>
+        </div>
+
+        <!-- User Management Section -->
+        <div class="glass-morphism rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-white mb-6">User Management</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="text-left text-gray-300">
+                            <th class="pb-4">Username</th>
+                            <th class="pb-4">Email</th>
+                            <th class="pb-4">Status</th>
+                            <th class="pb-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-white">
+                        <tr class="border-t border-gray-700">
+                            <td class="py-4">user1</td>
+                            <td class="py-4">user1@example.com</td>
+                            <td class="py-4"><span class="px-2 py-1 bg-green-500 bg-opacity-20 text-green-400 rounded">Active</span></td>
+                            <td class="py-4">
+                                <button class="text-blue-400 hover:text-blue-300 mr-2">Edit</button>
+                                <button class="text-red-400 hover:text-red-300">Delete</button>
+                            </td>
+                        </tr>
+                        <tr class="border-t border-gray-700">
+                            <td class="py-4">user2</td>
+                            <td class="py-4">user2@example.com</td>
+                            <td class="py-4"><span class="px-2 py-1 bg-yellow-500 bg-opacity-20 text-yellow-400 rounded">Inactive</span></td>
+                            <td class="py-4">
+                                <button class="text-blue-400 hover:text-blue-300 mr-2">Edit</button>
+                                <button class="text-red-400 hover:text-red-300">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Game Management Section -->
+        <div class="glass-morphism rounded-lg p-6">
+            <h2 class="text-2xl font-bold text-white mb-6">Game Management</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-gray-800 bg-opacity-50 rounded-lg p-4">
+                    <h3 class="text-white font-semibold mb-2">Snake Game</h3>
+                    <p class="text-gray-300 mb-4">Total Plays: 2,345</p>
+                    <button class="text-purple-400 hover:text-purple-300">View Stats</button>
+                </div>
+                <div class="bg-gray-800 bg-opacity-50 rounded-lg p-4">
+                    <h3 class="text-white font-semibold mb-2">Tic Tac Toe</h3>
+                    <p class="text-gray-300 mb-4">Total Plays: 1,892</p>
+                    <button class="text-purple-400 hover:text-purple-300">View Stats</button>
+                </div>
+                <div class="bg-gray-800 bg-opacity-50 rounded-lg p-4">
+                    <h3 class="text-white font-semibold mb-2">Sudoku</h3>
+                    <p class="text-gray-300 mb-4">Total Plays: 1,441</p>
+                    <button class="text-purple-400 hover:text-purple-300">View Stats</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Check if user is logged in as admin
+        window.addEventListener('load', () => {
+            const userType = localStorage.getItem('userType');
+            const username = localStorage.getItem('username');
+
+            if (userType !== 'admin') {
+                window.location.href = '../login.html';
+                return;
+            }
+
+            // Display admin username
+            const adminUsernameElement = document.getElementById('adminUsername');
+            adminUsernameElement.textContent = `Welcome, ${username}`;
+        });
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('userType');
+            localStorage.removeItem('username');
+            window.location.href = '../login.html';
+        }
+    </script>
+</body>
+</html> 

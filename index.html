@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameHub - Your Gaming Destination</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-purple-500">
+                <i class="fas fa-gamepad mr-2"></i>GameHub
+            </a>
+            <div class="space-x-4">
+                <a href="index.html" class="hover:text-purple-400">
+                    <i class="fas fa-home mr-1"></i>Home
+                </a>
+                <a href="games.html" class="hover:text-purple-400">
+                    <i class="fas fa-dice mr-1"></i>Games
+                </a>
+                <a href="login.html" class="hover:text-purple-400">
+                    <i class="fas fa-user mr-1"></i>Login
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center">
+        <div class="absolute inset-0 bg-gradient-to-r from-purple-900 to-blue-900 opacity-90"></div>
+        <div class="container mx-auto text-center relative z-10">
+            <h1 class="text-5xl font-bold mb-4">
+                <i class="fas fa-gamepad mr-2"></i>Welcome to GameHub
+            </h1>
+            <p class="text-xl mb-8">Your ultimate destination for classic games</p>
+            <a href="games.html" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full transition duration-300">
+                <i class="fas fa-play mr-2"></i>Play Now
+            </a>
+        </div>
+    </header>
+
+    <!-- Featured Games Section -->
+    <section class="py-16 bg-gray-800">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12">
+                <i class="fas fa-star mr-2"></i>Featured Games
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Snake Game -->
+                <div class="bg-gray-700 rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Snake Game" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">
+                            <i class="fas fa-snake mr-2"></i>Snake Game
+                        </h3>
+                        <p class="text-gray-300 mb-4">Classic snake game with modern graphics</p>
+                        <a href="games/snake/index.html" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                            <i class="fas fa-play mr-1"></i>Play Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tic Tac Toe -->
+                <div class="bg-gray-700 rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1611996575749-79a3a250f948?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Tic Tac Toe" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">
+                            <i class="fas fa-times mr-2"></i>Tic Tac Toe
+                        </h3>
+                        <p class="text-gray-300 mb-4">Challenge your friends in this classic game</p>
+                        <a href="games/tictactoe/index.html" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                            <i class="fas fa-play mr-1"></i>Play Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Sudoku -->
+                <div class="bg-gray-700 rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1611996575749-79a3a250f948?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Sudoku" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">
+                            <i class="fas fa-th mr-2"></i>Sudoku
+                        </h3>
+                        <p class="text-gray-300 mb-4">Test your logic with this number puzzle</p>
+                        <a href="games/sudoku/index.html" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                            <i class="fas fa-play mr-1"></i>Play Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-8">
+        <div class="container mx-auto text-center">
+            <p>
+                <i class="fas fa-copyright mr-1"></i>2024 GameHub. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html> 

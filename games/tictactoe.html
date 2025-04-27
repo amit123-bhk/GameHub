@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe - GameHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="../index.html" class="text-2xl font-bold text-purple-500">GameHub</a>
+            <div class="space-x-4">
+                <a href="../index.html" class="hover:text-purple-400">Home</a>
+                <a href="../games.html" class="hover:text-purple-400">Games</a>
+                <a href="../login.html" class="hover:text-purple-400">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Game Container -->
+    <main class="container mx-auto py-12">
+        <div class="max-w-md mx-auto">
+            <h1 class="text-4xl font-bold text-center mb-8">Tic Tac Toe</h1>
+            
+            <div class="bg-gray-800 rounded-lg p-8 shadow-lg">
+                <div class="text-center mb-8">
+                    <div class="text-2xl mb-2">Current Player: <span id="currentPlayer" class="text-purple-500">X</span></div>
+                    <button id="resetBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                        Reset Game
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="aspect-square bg-gray-700 rounded-lg flex items-center justify-center text-4xl font-bold cursor-pointer hover:bg-gray-600 transition-colors" data-index="0"></div>
+                    <div class="aspect-square bg-gray-700 rounded-lg flex items-center justify-center text-4xl font-bold cursor-pointer hover:bg-gray-600 transition-colors" data-index="1"></div>
+                    <div class="aspect-square bg-gray-700 rounded-lg flex items-center justify-center text-4xl font-bold cursor-pointer hover:bg-gray-600 transition-colors" data-index="2"></div>
+                    <div class="aspect-square bg-gray-700 rounded-lg flex items-center justify-center text-4xl font-bold cursor-pointer hover:bg-gray-600 transition-colors" data-index="3"></div>
+                    <div class="aspect-square bg-gray-700 rounded-lg flex items-center justify-center text-4xl font-bold cursor-pointer hover:bg-gray-600 transition-colors" data-index="4"></div>
+                    <div class="aspect-square bg-gray-700 rounded-lg flex items-center justify-center text-4xl font-bold cursor-pointer hover:bg-gray-600 transition-colors" data-index="5"></div>
+                    <div class="aspect-square bg-gray-700 rounded-lg flex items-center justify-center text-4xl font-bold cursor-pointer hover:bg-gray-600 transition-colors" data-index="6"></div>
+                    <div class="aspect-square bg-gray-700 rounded-lg flex items-center justify-center text-4xl font-bold cursor-pointer hover:bg-gray-600 transition-colors" data-index="7"></div>
+                    <div class="aspect-square bg-gray-700 rounded-lg flex items-center justify-center text-4xl font-bold cursor-pointer hover:bg-gray-600 transition-colors" data-index="8"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-8 mt-12">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 GameHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const cells = document.querySelectorAll('[data-index]');
+        const currentPlayerElement = document.getElementById('currentPlayer');
+        const resetBtn = document.getElementById('resetBtn');
+        
+        let currentPlayer = 'X';
+        let gameBoard = ['', '', '', '', '', '', '', '', ''];
+        let gameActive = true;
+
+        const winningCombinations = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+            [0, 4, 8], [2, 4, 6] // Diagonals
+        ];
+
+        function handleCellClick(e) {
+            const cell = e.target;
+            const index = cell.getAttribute('data-index');
+
+            if (gameBoard[index] !== '' || !gameActive) return;
+
+            gameBoard[index] = currentPlayer;
+            cell.textContent = currentPlayer;
+            cell.classList.add(currentPlayer === 'X' ? 'text-blue-500' : 'text-red-500');
+
+            if (checkWin()) {
+                gameActive = false;
+                setTimeout(() => {
+                    alert(`Player ${currentPlayer} wins!`);
+                }, 100);
+                return;
+            }
+
+            if (checkDraw()) {
+                gameActive = false;
+                setTimeout(() => {
+                    alert('Game is a draw!');
+                }, 100);
+                return;
+            }
+
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            currentPlayerElement.textContent = currentPlayer;
+        }
+
+        function checkWin() {
+            return winningCombinations.some(combination => {
+                return combination.every(index => {
+                    return gameBoard[index] === currentPlayer;
+                });
+            });
+        }
+
+        function checkDraw() {
+            return gameBoard.every(cell => cell !== '');
+        }
+
+        function resetGame() {
+            currentPlayer = 'X';
+            gameBoard = ['', '', '', '', '', '', '', '', ''];
+            gameActive = true;
+            currentPlayerElement.textContent = currentPlayer;
+            
+            cells.forEach(cell => {
+                cell.textContent = '';
+                cell.classList.remove('text-blue-500', 'text-red-500');
+            });
+        }
+
+        cells.forEach(cell => {
+            cell.addEventListener('click', handleCellClick);
+        });
+
+        resetBtn.addEventListener('click', resetGame);
+    </script>
+</body>
+</html> 

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game - GameHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        canvas {
+            border: 2px solid #4B5563;
+            background-color: #1F2937;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="../index.html" class="text-2xl font-bold text-purple-500">GameHub</a>
+            <div class="space-x-4">
+                <a href="../index.html" class="hover:text-purple-400">Home</a>
+                <a href="../games.html" class="hover:text-purple-400">Games</a>
+                <a href="../login.html" class="hover:text-purple-400">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Game Container -->
+    <main class="container mx-auto py-12">
+        <div class="max-w-2xl mx-auto">
+            <h1 class="text-4xl font-bold text-center mb-8">Snake Game</h1>
+            
+            <div class="bg-gray-800 rounded-lg p-8 shadow-lg">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="text-xl">Score: <span id="score">0</span></div>
+                    <button id="startBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                        Start Game
+                    </button>
+                </div>
+                
+                <canvas id="gameCanvas" width="400" height="400" class="mx-auto"></canvas>
+                
+                <div class="mt-4 text-center text-gray-400">
+                    <p>Use arrow keys to control the snake</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-8 mt-12">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 GameHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const startBtn = document.getElementById('startBtn');
+        const scoreElement = document.getElementById('score');
+
+        const gridSize = 20;
+        const tileCount = canvas.width / gridSize;
+        
+        let snake = [];
+        let food = {};
+        let dx = 0;
+        let dy = 0;
+        let score = 0;
+        let gameInterval;
+        let gameStarted = false;
+
+        function initGame() {
+            snake = [
+                {x: 10, y: 10}
+            ];
+            food = {
+                x: Math.floor(Math.random() * tileCount),
+                y: Math.floor(Math.random() * tileCount)
+            };
+            dx = 0;
+            dy = 0;
+            score = 0;
+            scoreElement.textContent = score;
+        }
+
+        function drawGame() {
+            // Clear canvas
+            ctx.fillStyle = '#1F2937';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw snake
+            ctx.fillStyle = '#10B981';
+            snake.forEach(segment => {
+                ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
+            });
+
+            // Draw food
+            ctx.fillStyle = '#EF4444';
+            ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
+        }
+
+        function moveSnake() {
+            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+
+            // Check wall collision
+            if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
+                gameOver();
+                return;
+            }
+
+            // Check self collision
+            for (let i = 0; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
+                    gameOver();
+                    return;
+                }
+            }
+
+            snake.unshift(head);
+
+            // Check food collision
+            if (head.x === food.x && head.y === food.y) {
+                score += 10;
+                scoreElement.textContent = score;
+                food = {
+                    x: Math.floor(Math.random() * tileCount),
+                    y: Math.floor(Math.random() * tileCount)
+                };
+            } else {
+                snake.pop();
+            }
+        }
+
+        function gameOver() {
+            clearInterval(gameInterval);
+            gameStarted = false;
+            startBtn.textContent = 'Start Game';
+            alert(`Game Over! Your score: ${score}`);
+        }
+
+        function startGame() {
+            if (gameStarted) {
+                clearInterval(gameInterval);
+                gameStarted = false;
+                startBtn.textContent = 'Start Game';
+            } else {
+                initGame();
+                gameStarted = true;
+                startBtn.textContent = 'Stop Game';
+                gameInterval = setInterval(() => {
+                    moveSnake();
+                    drawGame();
+                }, 100);
+            }
+        }
+
+        startBtn.addEventListener('click', startGame);
+
+        document.addEventListener('keydown', (e) => {
+            if (!gameStarted) return;
+
+            switch(e.key) {
+                case 'ArrowUp':
+                    if (dy !== 1) { dx = 0; dy = -1; }
+                    break;
+                case 'ArrowDown':
+                    if (dy !== -1) { dx = 0; dy = 1; }
+                    break;
+                case 'ArrowLeft':
+                    if (dx !== 1) { dx = -1; dy = 0; }
+                    break;
+                case 'ArrowRight':
+                    if (dx !== -1) { dx = 1; dy = 0; }
+                    break;
+            }
+        });
+
+        // Initial draw
+        drawGame();
+    </script>
+</body>
+</html> 

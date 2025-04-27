@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game - GameHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="../../index.html" class="text-2xl font-bold text-purple-500">
+                <i class="fas fa-gamepad mr-2"></i>GameHub
+            </a>
+            <div class="space-x-4">
+                <a href="../../index.html" class="hover:text-purple-400">
+                    <i class="fas fa-home mr-1"></i>Home
+                </a>
+                <a href="../../games.html" class="hover:text-purple-400">
+                    <i class="fas fa-dice mr-1"></i>Games
+                </a>
+                <a href="../../login.html" class="hover:text-purple-400">
+                    <i class="fas fa-user mr-1"></i>Login
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Game Container -->
+    <main class="container mx-auto py-12">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl font-bold text-center mb-8">
+                <i class="fas fa-snake mr-2"></i>Snake Game
+            </h1>
+            
+            <div class="bg-gray-800 rounded-lg p-8 shadow-lg">
+                <!-- Start Screen -->
+                <div id="startScreen" class="text-center">
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-bold mb-6">Select Difficulty</h2>
+                        <div class="difficulty-section glass-effect p-4 rounded-xl">
+                            <div class="grid grid-cols-3 gap-3">
+                                <button class="difficulty-btn glass-effect bg-purple-500/20 hover:bg-purple-500/30 text-white font-medium py-2 px-3 rounded-lg shadow-sm transform hover:scale-105 transition-all duration-300 flex flex-col items-center backdrop-blur-sm border border-purple-400/20" data-difficulty="easy">
+                                    <span class="text-xs font-medium">Easy</span>
+                                    <span class="text-xs text-purple-200/80 mt-1">0.5x</span>
+                                </button>
+                                <button class="difficulty-btn glass-effect bg-purple-500/20 hover:bg-purple-500/30 text-white font-medium py-2 px-3 rounded-lg shadow-sm transform hover:scale-105 transition-all duration-300 flex flex-col items-center backdrop-blur-sm border border-purple-400/20" data-difficulty="medium">
+                                    <span class="text-xs font-medium">Medium</span>
+                                    <span class="text-xs text-purple-200/80 mt-1">1x</span>
+                                </button>
+                                <button class="difficulty-btn glass-effect bg-purple-500/20 hover:bg-purple-500/30 text-white font-medium py-2 px-3 rounded-lg shadow-sm transform hover:scale-105 transition-all duration-300 flex flex-col items-center backdrop-blur-sm border border-purple-400/20" data-difficulty="hard">
+                                    <span class="text-xs font-medium">Hard</span>
+                                    <span class="text-xs text-purple-200/80 mt-1">1.5x</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-8">
+                        <input type="text" id="playerName" placeholder="Enter your name" class="bg-purple-500/20 text-white px-4 py-2 rounded-lg w-64 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 border border-purple-400/20">
+                    </div>
+                    <button id="startGameBtn" class="bg-purple-500/20 hover:bg-purple-500/30 text-white font-medium py-2 px-6 rounded-lg shadow-sm transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed border border-purple-400/20" disabled>
+                        Start Game
+                    </button>
+                </div>
+
+                <!-- Game Controls -->
+                <div id="gameControls" class="flex justify-between items-center mb-4 hidden">
+                    <div class="text-xl">Score: <span id="score">0</span></div>
+                    <div class="space-x-4">
+                        <span id="currentDifficulty" class="text-xl"></span>
+                        <button id="pauseBtn" class="bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-700 hover:to-yellow-800 text-white font-bold py-2 px-4 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300">
+                            <i class="fas fa-pause mr-1"></i>Pause
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="game-container">
+                    <canvas id="gameCanvas" class="mx-auto"></canvas>
+                </div>
+                
+                <div class="mt-4 text-center text-gray-400">
+                    <p><i class="fas fa-keyboard mr-1"></i>Use arrow keys to control the snake</p>
+                </div>
+
+                <!-- High Scores -->
+                <div class="mt-8">
+                    <h2 class="text-2xl font-bold text-center mb-4">
+                        <i class="fas fa-trophy mr-2"></i>High Scores
+                    </h2>
+                    <div class="bg-gray-700 rounded-lg p-4">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="text-gray-400">
+                                    <th class="text-left">Rank</th>
+                                    <th class="text-left">Name</th>
+                                    <th class="text-right">Score</th>
+                                    <th class="text-right">Difficulty</th>
+                                </tr>
+                            </thead>
+                            <tbody id="highScoresList">
+                                <!-- High scores will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-8 mt-12">
+        <div class="container mx-auto text-center">
+            <p>
+                <i class="fas fa-copyright mr-1"></i>2024 GameHub. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script src="game.js"></script>
+</body>
+</html> 
